@@ -8,6 +8,6 @@ public class ThermometerController {
 
     @GetMapping("")
     public String viewHomePage(){
-        return "ThermometerView";
+        return "HTML/ThermometerView";
     }
 }
