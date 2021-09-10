@@ -10,4 +10,6 @@ public class ThermometerController {
     public String viewHomePage(){
         return "ThermometerView";
     }
+
+    //Test comment
 }
