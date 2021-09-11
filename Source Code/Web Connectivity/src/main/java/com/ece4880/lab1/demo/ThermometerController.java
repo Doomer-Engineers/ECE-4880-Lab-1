@@ -15,11 +15,6 @@ public class ThermometerController {
     public static String to_number = "+14145269642";
     public static final String FROM_NUMBER = "+14088374565";
 
-    // Main method to test text output
-    public static void main(String[] args) {
-//        sendMessage("Hello world.");
-    }
-
     //getter and setter for the number to text
     public static String getTo_number() {
         return to_number;
@@ -54,6 +49,11 @@ public class ThermometerController {
     @GetMapping("")
     public String viewHomePage(){
         return "ThermometerView";
+    }
+
+    // Main method to test text output
+    public static void main(String[] args) {
+//        sendMessage("Hello world.");
     }
 
 }
