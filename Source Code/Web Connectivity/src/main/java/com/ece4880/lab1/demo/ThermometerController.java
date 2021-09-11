@@ -20,6 +20,14 @@ public class ThermometerController {
 //        sendMessage("Hello world.");
     }
 
+    //getter and setter for the number to text
+    public static String getTo_number() {
+        return to_number;
+    }
+    public static void setTo_number(String to_number) {
+        ThermometerController.to_number = to_number;
+    }
+
     // Method that sends a given message to the TO_NUMBER
     // Uses example code from Twilio quickstart documentation
     public static void sendMessage(String my_message){
