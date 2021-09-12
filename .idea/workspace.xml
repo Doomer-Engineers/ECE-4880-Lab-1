@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="086b5611-708a-48f4-81a3-2bfdb63a2428" name="Default Changelist" comment="" />
+    <list default="true" id="086b5611-708a-48f4-81a3-2bfdb63a2428" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/java/com/ece4880/lab1/demo/ThermometerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/java/com/ece4880/lab1/demo/ThermometerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/java/com/ece4880/lab1/demo/WeatherAttributes.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/java/com/ece4880/lab1/demo/WeatherAttributes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/resources/templates/ThermometerView.html" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/resources/templates/ThermometerView.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -84,6 +89,7 @@
       <workItem from="1631200427800" duration="1077000" />
       <workItem from="1631299243018" duration="8155000" />
       <workItem from="1631462483520" duration="3651000" />
+      <workItem from="1631469835231" duration="4675000" />
     </task>
     <servers />
   </component>

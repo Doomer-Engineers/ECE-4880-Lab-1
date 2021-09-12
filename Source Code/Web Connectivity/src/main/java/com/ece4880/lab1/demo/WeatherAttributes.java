@@ -1,7 +1,12 @@
 package com.ece4880.lab1.demo;
 
 public class WeatherAttributes {
+    static final String FAHRENHEIT = "Fahrenheit";
+    static final String CELSIUS = "Celsius";
+
     private String phoneNumberString = "xxx-xxx-xxxx";
+    private String degrees = CELSIUS;
+    private String previousDegrees = "";
     private long phoneNumber = 0;
     private int maxTemp = 50;
     private int minTemp = 10;
@@ -13,6 +18,14 @@ public class WeatherAttributes {
     public void setPhoneNumberString(String phoneNumberString) {
         this.phoneNumberString = phoneNumberString;
     }
+
+    public String getDegrees(){ return degrees;}
+
+    public void setDegrees(String degrees) {this.degrees = degrees;}
+
+    public String getPreviousDegrees() {return previousDegrees;}
+
+    public void setPreviousDegrees(String previous){this.previousDegrees = previous;}
 
     public long getPhoneNumber(){
         return phoneNumber;
@@ -39,5 +52,44 @@ public class WeatherAttributes {
 
     public void setMinTemp(int minTemp) {
         this.minTemp = minTemp;
+    }
+
+    public void updateTemps(){
+        if(degrees.equals(CELSIUS) && previousDegrees.equals(FAHRENHEIT)){
+            setMaxTemp(convertToCelsius(getMaxTemp()));
+            setMinTemp(convertToCelsius(getMinTemp()));
+            setPreviousDegrees(CELSIUS);
+        }
+        else if( degrees.equals(FAHRENHEIT) && previousDegrees.equals(CELSIUS) ||
+                   degrees.equals(FAHRENHEIT) && previousDegrees.equals("")){
+            setMaxTemp(convertToFahrenheit(getMaxTemp()));
+            setMinTemp(convertToFahrenheit(getMinTemp()));
+            setPreviousDegrees(FAHRENHEIT);
+        }
+
+        //logic for model because JS is not being implemented for on change for the degree drop down A.K.A need to fix later
+        if(getDegrees().equals(CELSIUS) && getMaxTemp() > 50){
+            setMaxTemp(50);
+        }
+        else if(getDegrees().equals(FAHRENHEIT) && getMaxTemp() < 50){
+            setMaxTemp(122);
+        }
+
+        if (getDegrees().equals(CELSIUS) && getMinTemp() > 50){
+            setMinTemp(10);
+        }
+        else if(getDegrees().equals(FAHRENHEIT) && getMinTemp() < 50){
+            setMinTemp(50);
+        }
+    }
+
+    private int convertToFahrenheit(int temp){
+        double tmp = 9.0/5.0 * (double) temp + 32;
+        return (int) Math.floor(tmp);
+    }
+
+    private int convertToCelsius(int temp){
+        double tmp = 5.0/9.0 * (temp - 32);
+        return (int) Math.floor(tmp);
     }
 }

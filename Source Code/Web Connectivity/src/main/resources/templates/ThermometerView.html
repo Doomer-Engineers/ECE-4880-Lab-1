@@ -55,7 +55,7 @@
                 <label class="label" th:for="degrees">Temperature Reading</label>
                 <div>
                     <label>
-                        <select name= "degrees" th:id = "degrees">
+                        <select name= "degrees" th:field="*{degrees}">
                             <option value  = "Celsius">°C</option>
                             <option value  = "Fahrenheit">°F</option>
                         </select>
@@ -66,7 +66,8 @@
                 <label class="label">Maximum Temp</label>
                 <div>
                     <label>
-                        <input class="input" type="number" th:field="*{maxTemp}"  min="10" max="50" oninput="validity.valid||(value='');" required/>
+                        <input class="input" type="number" th:field="*{maxTemp}"  th:if="*{degrees == 'Celsius'} " min="10" max="50" oninput="validity.valid||(value='');" required/>
+                        <input class="input" type="number" th:field="*{maxTemp}"  th:if="*{degrees == 'Fahrenheit'} " min="50" max="122" oninput="validity.valid||(value='');" required/>
                     </label>
                 </div>
             </div>
@@ -74,7 +75,8 @@
                 <label class="label">Minimum Temp</label>
                 <div>
                     <label>
-                        <input  class="input" type="number" th:field="*{minTemp}"  min="10" max="50" oninput="validity.valid||(value='');" required/>
+                        <input  class="input" type="number" th:field="*{minTemp}" th:action="@{''}" th:method="POST" th:if="*{degrees == 'Celsius'}" min="10" max="50" oninput="validity.valid||(value='');" required/>
+                        <input  class="input" type="number" th:field="*{minTemp}" th:if="*{degrees == 'Fahrenheit'}" min="50" max="122" oninput="validity.valid||(value='');" required/>
                     </label>
                 </div>
             </div>
