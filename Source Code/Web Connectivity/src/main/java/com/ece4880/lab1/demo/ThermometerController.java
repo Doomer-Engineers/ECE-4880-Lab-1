@@ -26,11 +26,14 @@ public class ThermometerController {
 
     @PostMapping(value ="")
     public String updateValues(@ModelAttribute(WEATHER_ATTRIBUTES) WeatherAttributes weatherAttributes, Model model){
-        model.addAttribute(weatherAttributes);
         weatherAttributes.setPhoneNumber(weatherAttributes.getPhoneNumberString());
-        System.out.println(weatherAttributes.getPhoneNumber());
-        System.out.println(weatherAttributes.getMaxTemp());
-        System.out.println(weatherAttributes.getMinTemp());
+        weatherAttributes.updateTemps();
+        System.out.println();
+        System.out.println("Phone Number: " + weatherAttributes.getPhoneNumber());
+        System.out.println("Max Temp: " + weatherAttributes.getMaxTemp());
+        System.out.println("Min Temp: " + weatherAttributes.getMinTemp());
+        System.out.println("Current State: " + weatherAttributes.getDegrees());
+        model.addAttribute(weatherAttributes);
         return HOMEPAGE;
     }
 
