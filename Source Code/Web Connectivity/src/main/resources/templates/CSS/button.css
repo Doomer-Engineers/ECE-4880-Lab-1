@@ -1,6 +1,6 @@
 .button {
     background-color: firebrick;
-    border: black ;
+    border: black;
     color: white;
     padding: 15px 32px;
     text-align: center;
@@ -8,4 +8,9 @@
     display: inline-block;
     font-size: 16px;
     border-radius: 4px;
+}
+
+.button:hover {
+    background-color: crimson;
+    color: white;
 }

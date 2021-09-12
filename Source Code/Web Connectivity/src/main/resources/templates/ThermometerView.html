@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" href="./button.css">
+    <title>Doomer's Thermometer Probe Interface</title>
+    <style>
+        .button {
+            background-color: firebrick;
+            border: black;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+
+        .button:hover {
+            background-color: crimson;
+            color: white;
+        }
+
+        .label {
+            color: black;
+            display: block;
+            padding:15px 0;
+            justify-content: left;
+        }
+
+        .input {
+            display: block;
+            justify-content: center;
+        }
+
+        .grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+    </style>
+</head>
+<body>
+    <article class="flow">
+        <form th:action="@{''}" th:method="post" th:object="${weatherAttributes}">
+            <div class="grid">
+                <label class=label>X Axis Scale</label>
+                <div>
+                    <button class=button th:type="button" id="sizeButtonMinus">-</button>
+                    <button class=button th:type="button" id="sizeButtonPlus">+</button>
+                </div>
+            </div>
+            <div class="grid">
+                <label class="label" th:for="degrees">Temperature Reading</label>
+                <div>
+                    <label>
+                        <select name= "degrees" th:id = "degrees">
+                            <option value  = "Celsius">°C</option>
+                            <option value  = "Fahrenheit">°F</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div class="grid">
+                <label class="label">Maximum Temp</label>
+                <div>
+                    <label>
+                        <input class="input" type="number" th:field="*{maxTemp}"  min="10" max="50" oninput="validity.valid||(value='');" required/>
+                    </label>
+                </div>
+            </div>
+            <div class="grid">
+                <label class="label">Minimum Temp</label>
+                <div>
+                    <label>
+                        <input  class="input" type="number" th:field="*{minTemp}"  min="10" max="50" oninput="validity.valid||(value='');" required/>
+                    </label>
+                </div>
+            </div>
+            <div class="grid">
+                <label class="label" >Phone Number</label>
+                <div>
+                    <label>
+                        <input class="input" type="tel" th:field="*{phoneNumberString}"  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required/>
+                    </label>
+                </div>
+            </div>
+            <div>
+                <label>
+                    <input type="submit" class="button">
+                </label>
+            </div>
+        </form>
+    </article>
+</body>
+</html>
