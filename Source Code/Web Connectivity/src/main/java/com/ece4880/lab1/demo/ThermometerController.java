@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
 
 @Controller
 public class ThermometerController {
@@ -19,7 +18,6 @@ public class ThermometerController {
     private static final String ACCOUNT_SID = "AC088384fe5a644619e6991093ed038b2f";
     private static final String AUTH_TOKEN = "ccb4ebaaf2ec8cc5f9e09c78defad059";
 
-    private static String to_number = "+14145269642";
     private static final String FROM_NUMBER = "+14088374565";
 
     @ModelAttribute(WEATHER_ATTRIBUTES)
@@ -37,20 +35,26 @@ public class ThermometerController {
         weatherAttributes.setPhoneNumber(weatherAttributes.getPhoneNumberString());
         weatherAttributes.updateTemps();
 
+        //We will be using this logic when we can get data from probe
+        /*
+        String toPhoneNumber = convertToPhoneNumFormat(weatherAttributes.getPhoneNumber());
+
         boolean isMaxTemp = false;
         boolean isMinTemp = false;
-        
+
+        //update with data from probe
         int temp = 50;
 
-        if (temp > weatherAttributes.getMaxTemp()){
+        if (temp >= weatherAttributes.getMaxTemp()){
             isMaxTemp = true;
         }
 
-        if (temp < weatherAttributes.getMinTemp()){
+        if (temp <= weatherAttributes.getMinTemp()){
             isMinTemp = true;
         }
 
-        textTempLimits(isMaxTemp,isMinTemp);
+        textTempLimits(isMaxTemp,isMinTemp, toPhoneNumber);
+         */
 
         System.out.println();
         System.out.println("Phone Number: " + weatherAttributes.getPhoneNumber());
@@ -61,38 +65,40 @@ public class ThermometerController {
         return HOMEPAGE;
     }
 
-        //getter and setter for the number to text
-    public static String getTo_number() {
-        return to_number;
-    }
-    public static void setTo_number(String to_number) {
-        ThermometerController.to_number = to_number;
-    }
-
     // Method that sends a given message to the TO_NUMBER
     // Uses example code from Twilio quickstart documentation
-    public static void sendMessage(String my_message){
+    public static void sendMessage(String myMessage ,String toPhoneNumber){
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Message message = Message.creator(
-                        new com.twilio.type.PhoneNumber(to_number),   // to number
+                        new com.twilio.type.PhoneNumber(toPhoneNumber),   // to number
                         new com.twilio.type.PhoneNumber(FROM_NUMBER), // from number
-                        my_message)                                   // message
+                        myMessage)                                   // message
                 .create();
 
         System.out.println(message.getSid());
     }
 
     // Code to send text based on temperature booleans
-    public static void textTempLimits(boolean isMaxTemp, boolean isMinTemp){
+    public static void textTempLimits(boolean isMaxTemp, boolean isMinTemp, String toPhoneNumber){
         if(isMaxTemp && !isMinTemp){
-            sendMessage("Maximum temperature reached");
+            sendMessage("Maximum temperature reached", toPhoneNumber);
         }
         else if(isMinTemp && !isMaxTemp){
-            sendMessage("Minimum temperature reached");
+            sendMessage("Minimum temperature reached", toPhoneNumber);
         }
-        else(isMaxTemp && isMinTemp){
-            sendMessage("Temperature reached")
+        else if(isMaxTemp && isMinTemp){
+            sendMessage("Temperature reached", toPhoneNumber);
         }
+    }
+
+    public static String convertToPhoneNumFormat(long phoneNumber){
+        StringBuilder tmp = new StringBuilder(Long.toString(phoneNumber));
+        if(Long.toString(phoneNumber).length() < 10){
+            for(int i = Long.toString(phoneNumber).length(); i == 10; i++){
+                tmp.insert(0, 0);
+            }
+        }
+        return "+1" + tmp;
     }
 
 }
