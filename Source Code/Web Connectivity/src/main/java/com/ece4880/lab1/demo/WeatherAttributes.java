@@ -4,7 +4,7 @@ public class WeatherAttributes {
     static final String FAHRENHEIT = "Fahrenheit";
     static final String CELSIUS = "Celsius";
 
-    private String phoneNumberString = "xxx-xxx-xxxx";
+    private String phoneNumberString = "e.g. xxx-xxx-xxxx";
     private String degrees = CELSIUS;
     private String previousDegrees = "";
     private long phoneNumber = 0;
