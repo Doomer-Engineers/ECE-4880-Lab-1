@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <link type="text/css" href="./button.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
     <title>Doomer's Thermometer Probe Interface</title>
     <style>
         .button {
@@ -39,61 +39,107 @@
             gap: 1rem;
         }
 
+        .wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 100px 100px;
+            grid-gap: 10px;
+        }
+
+        #my-chart {
+            height: 550px;
+            width: 1100px;
+            margin: 0 auto;
+        }
+
     </style>
 </head>
 <body>
-    <article class="flow">
-        <form th:action="@{''}" th:method="post" th:object="${weatherAttributes}">
-            <div class="grid">
-                <label class=label>X Axis Scale</label>
-                <div>
-                    <button class=button th:type="button" id="sizeButtonMinus">-</button>
-                    <button class=button th:type="button" id="sizeButtonPlus">+</button>
+    <div class="wrapper">
+        <article class="flow">
+            <form th:action="@{''}" th:method="post" th:object="${weatherAttributes}">
+                <div class="grid">
+                    <label class=label>X Axis Scale</label>
+                    <div>
+                        <button class=button th:type="button" id="sizeButtonMinus">-</button>
+                        <button class=button th:type="button" id="sizeButtonPlus">+</button>
+                    </div>
                 </div>
-            </div>
-            <div class="grid">
-                <label class="label" th:for="degrees">Temperature Reading</label>
+                <div class="grid">
+                    <label class="label" th:for="degrees">Temperature Reading</label>
+                    <div>
+                        <label>
+                            <select name= "degrees" th:field="*{degrees}">
+                                <option value  = "Celsius">°C</option>
+                                <option value  = "Fahrenheit">°F</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+                <div class="grid">
+                    <label class="label">Maximum Temp</label>
+                    <div>
+                        <label>
+                            <input class="input" type="number" th:field="*{maxTemp}"  th:if="*{degrees == 'Celsius'} " min="10" max="50" oninput="validity.valid||(value='');" required/>
+                            <input class="input" type="number" th:field="*{maxTemp}"  th:if="*{degrees == 'Fahrenheit'} " min="50" max="122" oninput="validity.valid||(value='');" required/>
+                        </label>
+                    </div>
+                </div>
+                <div class="grid">
+                    <label class="label">Minimum Temp</label>
+                    <div>
+                        <label>
+                            <input  class="input" type="number" th:field="*{minTemp}" th:if="*{degrees == 'Celsius'}" min="10" max="50" oninput="validity.valid||(value='');" required/>
+                            <input  class="input" type="number" th:field="*{minTemp}" th:if="*{degrees == 'Fahrenheit'}" min="50" max="122" oninput="validity.valid||(value='');" required/>
+                        </label>
+                    </div>
+                </div>
+                <div class="grid">
+                    <label class="label" >Phone Number</label>
+                    <div>
+                        <label>
+                            <input class="input" type="tel" th:field="*{phoneNumberString}"  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required/>
+                        </label>
+                    </div>
+                </div>
                 <div>
                     <label>
-                        <select name= "degrees" th:field="*{degrees}">
-                            <option value  = "Celsius">°C</option>
-                            <option value  = "Fahrenheit">°F</option>
-                        </select>
+                        <input type="submit" class="button">
                     </label>
                 </div>
-            </div>
-            <div class="grid">
-                <label class="label">Maximum Temp</label>
-                <div>
-                    <label>
-                        <input class="input" type="number" th:field="*{maxTemp}"  th:if="*{degrees == 'Celsius'} " min="10" max="50" oninput="validity.valid||(value='');" required/>
-                        <input class="input" type="number" th:field="*{maxTemp}"  th:if="*{degrees == 'Fahrenheit'} " min="50" max="122" oninput="validity.valid||(value='');" required/>
-                    </label>
-                </div>
-            </div>
-            <div class="grid">
-                <label class="label">Minimum Temp</label>
-                <div>
-                    <label>
-                        <input  class="input" type="number" th:field="*{minTemp}" th:action="@{''}" th:method="POST" th:if="*{degrees == 'Celsius'}" min="10" max="50" oninput="validity.valid||(value='');" required/>
-                        <input  class="input" type="number" th:field="*{minTemp}" th:if="*{degrees == 'Fahrenheit'}" min="50" max="122" oninput="validity.valid||(value='');" required/>
-                    </label>
-                </div>
-            </div>
-            <div class="grid">
-                <label class="label" >Phone Number</label>
-                <div>
-                    <label>
-                        <input class="input" type="tel" th:field="*{phoneNumberString}"  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required/>
-                    </label>
-                </div>
-            </div>
+            </form>
             <div>
-                <label>
-                    <input type="submit" class="button">
-                </label>
+                <button class="button">Turn on Display</button>
             </div>
-        </form>
-    </article>
+        </article>
+        <div>
+            <table class="charts-css line show-heading show-primary-axis" id="my-chart">
+                <caption> Temperature Graph </caption>
+                <tbody>
+                <tr>
+                    <td style="--start: 0.0; --size: 0.4"> <span class="data"></span> </td>
+                </tr>
+                <tr>
+                    <td style="--start: 0.4; --size: 0.2"> <span class="data"></span> </td>
+                </tr>
+                <tr>
+                    <td style="--start: 0.2; --size: 0.6"> <span class="data"></span> </td>
+                </tr>
+                <tr>
+                    <td style="--start: 0.6; --size: 0.4"> <span class="data"></span> </td>
+                </tr>
+                <tr>
+                    <td style="--start: 0.4; --size: 0.8"> <span class="data"></span> </td>
+                </tr>
+                <tr>
+                    <td style="--start: 0.8; --size: 0.6"> <span class="data"></span> </td>
+                </tr>
+                <tr>
+                    <td style="--start: 0.6; --size: 1.0"> <span class="data"></span> </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

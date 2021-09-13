@@ -24,7 +24,7 @@ public class ThermometerController {
         return HOMEPAGE;
     }
 
-    @PostMapping(value ="")
+    @PostMapping("")
     public String updateValues(@ModelAttribute(WEATHER_ATTRIBUTES) WeatherAttributes weatherAttributes, Model model){
         weatherAttributes.setPhoneNumber(weatherAttributes.getPhoneNumberString());
         weatherAttributes.updateTemps();
