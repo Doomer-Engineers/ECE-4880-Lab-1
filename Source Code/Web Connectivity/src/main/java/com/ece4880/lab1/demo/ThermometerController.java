@@ -33,34 +33,32 @@ public class ThermometerController {
     @PostMapping("")
     public String updateValues(@ModelAttribute(WEATHER_ATTRIBUTES) WeatherAttributes weatherAttributes, Model model){
         weatherAttributes.setPhoneNumber(weatherAttributes.getPhoneNumberString());
-        weatherAttributes.updateTemps();
-
         //We will be using this logic when we can get data from probe
+
         /*
         String toPhoneNumber = convertToPhoneNumFormat(weatherAttributes.getPhoneNumber());
-
-        boolean isMaxTemp = false;
-        boolean isMinTemp = false;
 
         //update with data from probe
         int temp = 50;
 
         if (temp >= weatherAttributes.getMaxTemp()){
-            isMaxTemp = true;
+            String message = weatherAttributes.getMaxTempString();
+            sendMessage(message, toPhoneNumber);
         }
 
-        if (temp <= weatherAttributes.getMinTemp()){
-            isMinTemp = true;
+        if (temp <= weatherAttributes.getMinTemp()) {
+            String message = weatherAttributes.getMinTempString();
+            sendMessage(message, toPhoneNumber);
         }
 
-        textTempLimits(isMaxTemp,isMinTemp, toPhoneNumber);
          */
 
         System.out.println();
         System.out.println("Phone Number: " + weatherAttributes.getPhoneNumber());
         System.out.println("Max Temp: " + weatherAttributes.getMaxTemp());
+        System.out.println("Max Temp Message: " + weatherAttributes.getMaxTempString());
         System.out.println("Min Temp: " + weatherAttributes.getMinTemp());
-        System.out.println("Current State: " + weatherAttributes.getDegrees());
+        System.out.println("Min Temp Message: " + weatherAttributes.getMinTempString());
         model.addAttribute(weatherAttributes);
         return HOMEPAGE;
     }
@@ -76,19 +74,6 @@ public class ThermometerController {
                 .create();
 
         System.out.println(message.getSid());
-    }
-
-    // Code to send text based on temperature booleans
-    public static void textTempLimits(boolean isMaxTemp, boolean isMinTemp, String toPhoneNumber){
-        if(isMaxTemp && !isMinTemp){
-            sendMessage("Maximum temperature reached", toPhoneNumber);
-        }
-        else if(isMinTemp && !isMaxTemp){
-            sendMessage("Minimum temperature reached", toPhoneNumber);
-        }
-        else if(isMaxTemp && isMinTemp){
-            sendMessage("Temperature reached", toPhoneNumber);
-        }
     }
 
     public static String convertToPhoneNumFormat(long phoneNumber){

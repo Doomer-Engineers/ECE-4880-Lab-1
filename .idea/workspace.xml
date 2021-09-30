@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="086b5611-708a-48f4-81a3-2bfdb63a2428" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/8/08ef71ff2029429ee08163ac751bc05b4da828bc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/8/0/802bec3b695c596fe54cadf08e51f48648e0c819" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/c/a/cae9a8c7e7b16eeafd6ed949069c58e39ca09108" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/java/com/ece4880/lab1/demo/ThermometerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/java/com/ece4880/lab1/demo/ThermometerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/java/com/ece4880/lab1/demo/WeatherAttributes.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/java/com/ece4880/lab1/demo/WeatherAttributes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/resources/templates/ThermometerView.html" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/resources/templates/ThermometerView.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/target/classes/com/ece4880/lab1/demo/ThermometerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/target/classes/com/ece4880/lab1/demo/ThermometerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/target/classes/com/ece4880/lab1/demo/WeatherAttributes.class" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/target/classes/com/ece4880/lab1/demo/WeatherAttributes.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +96,9 @@
       <workItem from="1631462483520" duration="3651000" />
       <workItem from="1631469835231" duration="4675000" />
       <workItem from="1631503517543" duration="1486000" />
+      <workItem from="1631802842775" duration="1504000" />
+      <workItem from="1632357126505" duration="600000" />
+      <workItem from="1633039113362" duration="3827000" />
     </task>
     <servers />
   </component>

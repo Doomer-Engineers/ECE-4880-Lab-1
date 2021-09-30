@@ -52,47 +52,50 @@
             margin: 0 auto;
         }
 
+
+         .myText {
+             text-align: center;
+             font-size: 35px;
+         }
+
     </style>
 </head>
 <body>
     <div class="wrapper">
         <article class="flow">
+            <div>
+                <label class="myText">Temperature Reading</label>
+                <p class="myText">61°C</p>
+            </div>
+            <form>
+                <p>Select temp scale for graph:</p>
+                 <input type="radio" id="C" name="temp" value="C">
+                 <label for="C">Celsius</label>
+                 <input type="radio" id="F" name="temp" value="F">
+                 <label for="F">Fahrenheit</label>
+            </form>
             <form th:action="@{''}" th:method="post" th:object="${weatherAttributes}">
                 <div class="grid">
-                    <label class=label>X Axis Scale</label>
-                    <div>
-                        <button class=button th:type="button" id="sizeButtonMinus">-</button>
-                        <button class=button th:type="button" id="sizeButtonPlus">+</button>
-                    </div>
-                </div>
-                <div class="grid">
-                    <label class="label" th:for="degrees">Temperature Reading</label>
+                    <label class="label">Maximum Temp°C</label>
                     <div>
                         <label>
-                            <select name= "degrees" th:field="*{degrees}">
-                                <option value  = "Celsius">°C</option>
-                                <option value  = "Fahrenheit">°F</option>
-                            </select>
+                            <input class="input" type="number" th:field="*{maxTemp}" oninput="validity.valid||(value='');" required/>
                         </label>
                     </div>
+                    <label>
+                        <input class = "input" type="text" th:field="*{maxTempString}">
+                    </label>
                 </div>
                 <div class="grid">
-                    <label class="label">Maximum Temp</label>
+                    <label class="label">Minimum Temp°C</label>
                     <div>
                         <label>
-                            <input class="input" type="number" th:field="*{maxTemp}"  th:if="*{degrees == 'Celsius'} " min="10" max="50" oninput="validity.valid||(value='');" required/>
-                            <input class="input" type="number" th:field="*{maxTemp}"  th:if="*{degrees == 'Fahrenheit'} " min="50" max="122" oninput="validity.valid||(value='');" required/>
+                            <input  class="input" type="number" th:field="*{minTemp}"  oninput="validity.valid||(value='');" required/>
                         </label>
                     </div>
-                </div>
-                <div class="grid">
-                    <label class="label">Minimum Temp</label>
-                    <div>
-                        <label>
-                            <input  class="input" type="number" th:field="*{minTemp}" th:if="*{degrees == 'Celsius'}" min="10" max="50" oninput="validity.valid||(value='');" required/>
-                            <input  class="input" type="number" th:field="*{minTemp}" th:if="*{degrees == 'Fahrenheit'}" min="50" max="122" oninput="validity.valid||(value='');" required/>
-                        </label>
-                    </div>
+                    <label>
+                        <input class = "input" type="text" th:field="*{minTempString}">
+                    </label>
                 </div>
                 <div class="grid">
                     <label class="label" >Phone Number</label>
