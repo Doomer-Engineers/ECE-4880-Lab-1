@@ -10,7 +10,6 @@
       <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/resources/templates/ThermometerView.html" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/resources/templates/ThermometerView.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/target/classes/com/ece4880/lab1/demo/ThermometerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/target/classes/com/ece4880/lab1/demo/ThermometerController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/target/classes/templates/ThermometerView.html" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/target/classes/templates/ThermometerView.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/target/classes/templates/main.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +132,7 @@
       <workItem from="1633062343338" duration="2677000" />
       <workItem from="1633069000975" duration="1063000" />
       <workItem from="1633074881069" duration="22410000" />
-      <workItem from="1633109875752" duration="2238000" />
+      <workItem from="1633109875752" duration="3308000" />
     </task>
     <servers />
   </component>

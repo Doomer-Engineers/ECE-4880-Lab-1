@@ -67,11 +67,10 @@ public class ThermometerController {
         if(temp.getProbe() == 1 && temp.getTemp() == null){
             model.addAttribute("error", "error occurred");
         }
-        else if(temp.getProbe() == 1){
             model.addAttribute(weatherAttributes);
             model.addAttribute(button);
             checkTemps(weatherAttributes, toPhoneNumber, temp);
-        }
+
         //should get new temperature, not just the entire object so filter here
         return HOMEPAGE;
     }
@@ -94,13 +93,10 @@ public class ThermometerController {
         if(temp.getProbe() == 1 && temp.getTemp() == null){
             model.addAttribute("error", "error occurred");
         }
-        else if(temp.getProbe() == 1){
             model.addAttribute(weatherAttributes);
             model.addAttribute(button);
             String toPhoneNumber = weatherAttributes.getPhoneNumber();
             checkTemps(weatherAttributes, toPhoneNumber, temp);
-
-        }
 
         System.out.println();
         System.out.println("Phone Number: " + weatherAttributes.getPhoneNumber());
