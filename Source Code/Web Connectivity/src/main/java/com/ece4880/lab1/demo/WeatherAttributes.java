@@ -1,10 +1,10 @@
 package com.ece4880.lab1.demo;
 
 public class WeatherAttributes {
-    private String phoneNumberString = "e.g. xxx-xxx-xxxx";
+    private String phoneNumberString = "";
     private String maxTempString = "Maximum temperature bound reached";
     private String minTempString = "Minimum temperature bound reached";
-    private long phoneNumber = 0;
+    private String phoneNumber = "712-216-1659";
     private int maxTemp = 50;
     private int minTemp = 10;
 
@@ -16,15 +16,12 @@ public class WeatherAttributes {
         this.phoneNumberString = phoneNumberString;
     }
 
-    public long getPhoneNumber(){
+    public String getPhoneNumber(){
         return phoneNumber;
     }
 
     public void setPhoneNumber(String s){
-        int group1 = Integer.parseInt(s.substring(0,3));
-        int group2 = Integer.parseInt(s.substring(4,7));
-        int group3 = Integer.parseInt(s.substring(8,12));
-        this.phoneNumber = group1 * 10000000L +  group2 * 10000L  + group3;
+        this.phoneNumber=s.replace("-", "");
     }
 
     public int getMaxTemp() {
