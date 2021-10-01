@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -52,8 +54,14 @@ public class ThermometerController {
 
         String toPhoneNumber = weatherAttributes.getPhoneNumber();
 
-        Temperature temp = tRepo.findByID(1L);
+        List<Temperature> temps = tRepo.findAll();
+        ArrayList<Temperature> temps2 = new ArrayList<>();
+        for(int i = temps.size() - 1; i > temps.size() - 12; i--){
+            temps2.add(temps.get(i));
+        }
+        Temperature temp = temps2.get(0);
 
+        model.addAttribute("tempList",temps2);
         model.addAttribute("temp" , temp.getTemp());
         model.addAttribute("probe", temp.getProbe());
 
@@ -72,8 +80,15 @@ public class ThermometerController {
     @PostMapping("")
     public String updateValues(@ModelAttribute(WEATHER_ATTRIBUTES) WeatherAttributes weatherAttributes, @ModelAttribute(BUTTON) Button button, Model model){
         weatherAttributes.setPhoneNumber(weatherAttributes.getPhoneNumberString());
-        Temperature temp = tRepo.findByID(1L);
 
+
+        List<Temperature> temps = tRepo.findAll();
+        ArrayList<Temperature> temps2 = new ArrayList<>();
+        for(int i = temps.size() - 1; i > temps.size() - 12; i--){
+            temps2.add(temps.get(i));
+        }
+        Temperature temp = temps2.get(0);
+        model.addAttribute("tempList",temps2);
         model.addAttribute("temp" , temp.getTemp());
         model.addAttribute("probe", temp.getProbe());
 
