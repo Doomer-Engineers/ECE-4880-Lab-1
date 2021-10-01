@@ -50,28 +50,24 @@ public class ThermometerController {
         //We will be using this logic when we can get data from probe
         model.addAttribute(weatherAttributes);
 
+        String toPhoneNumber = weatherAttributes.getPhoneNumber();
 
         Optional<Temperature> temp = tRepo.findById(1L);
-        temp.ifPresent(value -> model.addAttribute("temp", value.getTemp()));
+        temp.ifPresent(value -> {
+            model.addAttribute("temp", value.getTemp());
+            if (value.getTemp() >= weatherAttributes.getMaxTemp()){
+                String message = weatherAttributes.getMaxTempString();
+                sendMessage(message, toPhoneNumber);
+                System.out.println("Sending text message to: " + toPhoneNumber + ", Maximum boundary for temperature reached.");
+            }
 
-        /*
-        String toPhoneNumber = convertToPhoneNumFormat(weatherAttributes.getPhoneNumber());
+            if (value.getTemp() <= weatherAttributes.getMinTemp()) {
+                String message = weatherAttributes.getMinTempString();
+                sendMessage(message, toPhoneNumber);
+                System.out.println("Sending text message to: " + toPhoneNumber + ", Minimum boundary for temperature reached.");
 
-        //update with data from probe
-        int temp = 50;
-
-        if (temp >= weatherAttributes.getMaxTemp()){
-            String message = weatherAttributes.getMaxTempString();
-            sendMessage(message, toPhoneNumber);
-        }
-
-        if (temp <= weatherAttributes.getMinTemp()) {
-            String message = weatherAttributes.getMinTempString();
-            sendMessage(message, toPhoneNumber);
-        }
-
-         */
-
+            }
+        });
 
         //should get new temperature, not just the entire object so filter here
         return HOMEPAGE;
@@ -92,6 +88,25 @@ public class ThermometerController {
         /////////////////////////////////////////////////////////////////////////////////////////////
         //update button database to see if the virtual button is pressed
         /////////////////////////////////////////////////////////////////////////////////////////////
+        String toPhoneNumber = weatherAttributes.getPhoneNumber();
+
+        Optional<Temperature> temp = tRepo.findById(1L);
+        temp.ifPresent(value -> {
+            model.addAttribute("temp", value.getTemp());
+            if (value.getTemp() >= weatherAttributes.getMaxTemp()){
+                String message = weatherAttributes.getMaxTempString();
+                sendMessage(message, toPhoneNumber);
+                System.out.println("Sending text message to: " + toPhoneNumber + " " + weatherAttributes.getMaxTempString());
+            }
+
+            if (value.getTemp() <= weatherAttributes.getMinTemp()) {
+                String message = weatherAttributes.getMinTempString();
+                sendMessage(message, toPhoneNumber);
+                System.out.println("Sending text message to: " + toPhoneNumber + " " + weatherAttributes.getMinTempString());
+
+            }
+        });
+        ///^^THIS needs to display an error message if there is no temp instead of just displaying the last value stored
 
         model.addAttribute(weatherAttributes);
         return HOMEPAGE;
@@ -106,16 +121,6 @@ public class ThermometerController {
                 .create();
 
         System.out.println(message.getSid());
-    }
-
-    public static String convertToPhoneNumFormat(long phoneNumber){
-        StringBuilder tmp = new StringBuilder(Long.toString(phoneNumber));
-        if(Long.toString(phoneNumber).length() < 10){
-            for(int i = Long.toString(phoneNumber).length(); i == 10; i++){
-                tmp.insert(0, 0);
-            }
-        }
-        return "+1" + tmp;
     }
 
 }
