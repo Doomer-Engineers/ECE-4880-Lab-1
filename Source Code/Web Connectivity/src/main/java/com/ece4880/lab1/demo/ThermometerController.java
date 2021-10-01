@@ -52,7 +52,7 @@ public class ThermometerController {
 
         String toPhoneNumber = weatherAttributes.getPhoneNumber();
 
-        Temperature temp = tRepo.findByID(3L);
+        Temperature temp = tRepo.findByID(1L);
 
         model.addAttribute("temp" , temp.getTemp());
         model.addAttribute("probe", temp.getProbe());
@@ -82,7 +82,7 @@ public class ThermometerController {
     @PostMapping("")
     public String updateValues(@ModelAttribute(WEATHER_ATTRIBUTES) WeatherAttributes weatherAttributes, @ModelAttribute(BUTTON) Button button, Model model){
         weatherAttributes.setPhoneNumber(weatherAttributes.getPhoneNumberString());
-        Temperature temp = tRepo.findByID(2L);
+        Temperature temp = tRepo.findByID(1L);
 
         model.addAttribute("temp" , temp.getTemp());
 
