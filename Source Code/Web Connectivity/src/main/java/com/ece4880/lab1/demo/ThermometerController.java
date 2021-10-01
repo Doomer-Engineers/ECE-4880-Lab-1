@@ -62,18 +62,8 @@ public class ThermometerController {
         }
         else if(temp.getProbe() != 1){
             model.addAttribute(weatherAttributes);
-            if (value.getTemp() >= weatherAttributes.getMaxTemp()){
-                String message = weatherAttributes.getMaxTempString();
-                sendMessage(message, toPhoneNumber);
-                System.out.println("Sending text message to: " + toPhoneNumber + ", Maximum boundary for temperature reached.");
-            }
 
-            if (value.getTemp() <= weatherAttributes.getMinTemp()) {
-                String message = weatherAttributes.getMinTempString();
-                sendMessage(message, toPhoneNumber);
-                System.out.println("Sending text message to: " + toPhoneNumber + ", Minimum boundary for temperature reached.");
-
-            }
+            checkTemps(weatherAttributes, toPhoneNumber, temp);
         }
         //should get new temperature, not just the entire object so filter here
         return HOMEPAGE;
@@ -93,20 +83,8 @@ public class ThermometerController {
             model.addAttribute(weatherAttributes);
           
             String toPhoneNumber = weatherAttributes.getPhoneNumber();
-          
-            model.addAttribute(weatherAttributes);
-            if (value.getTemp() >= weatherAttributes.getMaxTemp()){
-                String message = weatherAttributes.getMaxTempString();
-                sendMessage(message, toPhoneNumber);
-                System.out.println("Sending text message to: " + toPhoneNumber + ", Maximum boundary for temperature reached.");
-            }
 
-            if (value.getTemp() <= weatherAttributes.getMinTemp()) {
-                String message = weatherAttributes.getMinTempString();
-                sendMessage(message, toPhoneNumber);
-                System.out.println("Sending text message to: " + toPhoneNumber + ", Minimum boundary for temperature reached.");
-
-            }
+            checkTemps(weatherAttributes, toPhoneNumber, temp);
 
         }
 
@@ -122,6 +100,21 @@ public class ThermometerController {
         /////////////////////////////////////////////////////////////////////////////////////////////
        
         return HOMEPAGE;
+    }
+
+    private void checkTemps(@ModelAttribute(WEATHER_ATTRIBUTES) WeatherAttributes weatherAttributes, String toPhoneNumber, Temperature temp) {
+        if (temp.getTemp() >= weatherAttributes.getMaxTemp()){
+            String message = weatherAttributes.getMaxTempString();
+            sendMessage(message, toPhoneNumber);
+            System.out.println("Sending text message to: " + toPhoneNumber + ", Maximum boundary for temperature reached.");
+        }
+
+        if (temp.getTemp() <= weatherAttributes.getMinTemp()) {
+            String message = weatherAttributes.getMinTempString();
+            sendMessage(message, toPhoneNumber);
+            System.out.println("Sending text message to: " + toPhoneNumber + ", Minimum boundary for temperature reached.");
+
+        }
     }
 
     public static void sendMessage(String myMessage ,String toPhoneNumber){
