@@ -6,13 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="086b5611-708a-48f4-81a3-2bfdb63a2428" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/java/com/ece4880/lab1/demo/Temperature.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/java/com/ece4880/lab1/demo/Temperature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/java/com/ece4880/lab1/demo/TemperatureRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/java/com/ece4880/lab1/demo/TemperatureRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/java/com/ece4880/lab1/demo/TemperatureService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/java/com/ece4880/lab1/demo/TemperatureService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/java/com/ece4880/lab1/demo/ThermometerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/java/com/ece4880/lab1/demo/ThermometerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/resources/templates/ThermometerView.html" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/src/main/resources/templates/ThermometerView.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/target/classes/com/ece4880/lab1/demo/TemperatureService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/target/classes/com/ece4880/lab1/demo/TemperatureService$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/target/classes/com/ece4880/lab1/demo/TemperatureService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/target/classes/com/ece4880/lab1/demo/TemperatureService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/target/classes/com/ece4880/lab1/demo/ThermometerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/target/classes/com/ece4880/lab1/demo/ThermometerController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source Code/Web Connectivity/target/classes/templates/ThermometerView.html" beforeDir="false" afterPath="$PROJECT_DIR$/Source Code/Web Connectivity/target/classes/templates/ThermometerView.html" afterDir="false" />
     </list>
@@ -103,6 +98,7 @@
       <workItem from="1632357126505" duration="600000" />
       <workItem from="1633039113362" duration="14078000" />
       <workItem from="1633062343338" duration="2677000" />
+      <workItem from="1633069000975" duration="789000" />
     </task>
     <servers />
   </component>
