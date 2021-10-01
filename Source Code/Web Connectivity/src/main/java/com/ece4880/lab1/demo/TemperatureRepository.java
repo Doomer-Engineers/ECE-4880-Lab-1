@@ -7,6 +7,6 @@ public interface TemperatureRepository extends JpaRepository<com.ece4880.lab1.de
     @Query("SELECT t FROM Temperature t WHERE t.id = ?1")
     com.ece4880.lab1.demo.Temperature findByID(Long i);
 
-    @Query("SELECT t FROM Temperature t WHERE t.id=(SELECT max(t.id) FROM Temperature)")
-    com.ece4880.lab1.demo.Temperature getLastTemp();
+    @Query("SELECT t FROM Temperature t ORDER BY t.id DESC")
+    com.ece4880.lab1.demo.Temperature getAllByLastTemp();
 }

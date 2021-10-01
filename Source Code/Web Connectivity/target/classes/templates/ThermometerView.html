@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
     <title>Doomer's Thermometer Probe Interface</title>
     <style>
         .button {
@@ -46,16 +45,31 @@
             grid-gap: 10px;
         }
 
-        #my-chart {
+        #chart_div {
             height: 275px;
             width: 550px;
             margin: 0 auto;
             transition: transform .2s;
             position:relative;
             top: 200px;
+            left: 100px;
         }
 
-        #my-chart:hover{
+        #chart_div:hover{
+            transform: scale(2);
+        }
+
+        #chart_div_F {
+            height: 275px;
+            width: 550px;
+            margin: 0 auto;
+            transition: transform .2s;
+            position:relative;
+            top: 200px;
+            left: 100px;
+        }
+
+        #chart_div_F:hover{
             transform: scale(2);
         }
 
@@ -131,32 +145,95 @@
             </div>
         </article>
         <div>
-            <table class="charts-css line show-heading show-primary-axis" id="my-chart">
-                <caption> Temperature Graph </caption>
-                <tbody>
-                <tr>
-                    <td style="--start: 0.0; --size: 0.4"> <span class="data"></span> </td>
-                </tr>
-                <tr>
-                    <td style="--start: 0.4; --size: 0.2"> <span class="data"></span> </td>
-                </tr>
-                <tr>
-                    <td style="--start: 0.2; --size: 0.6"> <span class="data"></span> </td>
-                </tr>
-                <tr>
-                    <td style="--start: 0.6; --size: 0.4"> <span class="data"></span> </td>
-                </tr>
-                <tr>
-                    <td style="--start: 0.4; --size: 0.8"> <span class="data"></span> </td>
-                </tr>
-                <tr>
-                    <td style="--start: 0.8; --size: 0.6"> <span class="data"></span> </td>
-                </tr>
-                <tr>
-                    <td style="--start: 0.6; --size: 1.0"> <span class="data"></span> </td>
-                </tr>
-                </tbody>
-            </table>
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript" th:inline="javascript">
+
+                // Load the Visualization API and the corechart package.
+                google.charts.load('current', {'packages':['corechart']});
+
+                // Set a callback to run when the Google Visualization API is loaded.
+                google.charts.setOnLoadCallback(drawChart);
+
+                // Callback that creates and populates a data table,
+                // instantiates the pie chart, passes in the data and
+                // draws it.
+                function drawChart() {
+
+                    var arr = []
+                    var arr2 = [];
+                    /*[# th:each="n : ${tempList}"]*/
+
+                    arr.push("[(${n.temp})]");
+                    console.log("[(${n.temp})]");
+                    /*[/]*/
+
+                    for(var j = 0; j <300; j++){
+                        arr2.push([j,parseFloat(arr[j])]);
+                    }
+
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('number', "Seconds");
+                    data.addColumn('number', "Temp");
+                    data.addRows(arr2);
+
+                    var options = {
+                        title: 'Temperature Graph',
+                        curveType: 'function',
+                        legend: { position: 'bottom' },
+                        vAxis: {viewWindowMode:'maximized', maxValue:50, minValue:10},
+                        hAxis: {direction:-1}
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+                    chart.draw(data, options);
+                }
+            </script>
+            <script type="text/javascript" th:inline="javascript">
+
+                // Load the Visualization API and the corechart package.
+                google.charts.load('current', {'packages':['corechart']});
+
+                // Set a callback to run when the Google Visualization API is loaded.
+                google.charts.setOnLoadCallback(drawChart);
+
+                // Callback that creates and populates a data table,
+                // instantiates the pie chart, passes in the data and
+                // draws it.
+                function drawChart() {
+
+                    var arr = []
+                    var arr2 = [];
+                    /*[# th:each="n : ${tempList}"]*/
+
+                    arr.push("[(${n.temp})]");
+                    console.log("[(${n.temp})]");
+                    /*[/]*/
+
+                    for(var j = 0; j <300; j++){
+                        arr2.push([j,(parseFloat(arr[j])+ 9/5) + 32 ]);
+                    }
+
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('number', "Seconds");
+                    data.addColumn('number', "Temp");
+                    data.addRows(arr2);
+
+                    var options = {
+                        title: 'Temperature Graph',
+                        curveType: 'function',
+                        legend: { position: 'bottom' },
+                        vAxis: {viewWindowMode:'maximized', maxValue:122, minValue:50 },
+                        hAxis: {direction:-1}
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('chart_div_F'));
+
+                    chart.draw(data, options);
+                }
+            </script>
+            <div id="chart_div" th:if ="${temp != null && weatherAttributes.degreeState == 'C'}"></div>
+            <div id="chart_div_F" th:if ="${temp != null && weatherAttributes.degreeState == 'F'}"></div>
         </div>
     </div>
 </body>
