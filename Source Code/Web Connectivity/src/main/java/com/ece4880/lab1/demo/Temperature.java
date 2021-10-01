@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "temperature")
 public class Temperature {
     @Id
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private Long id;
 
     @Column
@@ -15,10 +15,14 @@ public class Temperature {
     @Column(length = 45)
     private String date;
 
-    public Temperature(Long id, Float temp, String date) {
+    @Column
+    private int probe;
+
+    public Temperature(Long id, Float temp, String date,  int probe) {
         this.id = id;
         this.temp = temp;
         this.date = date;
+        this.probe = probe;
     }
 
     public Temperature() {
@@ -46,5 +50,13 @@ public class Temperature {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getProbe() {
+        return probe;
+    }
+
+    public void setProbe(int probe) {
+        this.probe = probe;
     }
 }

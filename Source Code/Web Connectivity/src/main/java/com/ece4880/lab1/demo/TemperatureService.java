@@ -22,7 +22,8 @@ public class TemperatureService {
             public Temperature mapRow(ResultSet resultSet, int i) throws SQLException {
                 Temperature row = new Temperature(resultSet.getLong("id"),
                         resultSet.getFloat("temp"),
-                        resultSet.getString("datetime"));
+                        resultSet.getString("datetime"),
+                        resultSet.getInt("probe"));
                 return row;
             }
         };

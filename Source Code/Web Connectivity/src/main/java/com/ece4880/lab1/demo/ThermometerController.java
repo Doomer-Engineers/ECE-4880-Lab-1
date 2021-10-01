@@ -51,8 +51,17 @@ public class ThermometerController {
         model.addAttribute(weatherAttributes);
 
 
-        Optional<Temperature> temp = tRepo.findById(1L);
-        temp.ifPresent(value -> model.addAttribute("temp", value.getTemp()));
+        Temperature temp = tRepo.findByID(3L);
+
+        model.addAttribute("temp" , temp.getTemp());
+        model.addAttribute("probe", temp.getProbe());
+
+        if(temp.getProbe() == 1 && temp.getTemp() == null){
+            model.addAttribute("error", "error occurred");
+        }
+        else if(temp.getProbe() != 1){
+            model.addAttribute(weatherAttributes);
+        }
 
         /*
         String toPhoneNumber = convertToPhoneNumFormat(weatherAttributes.getPhoneNumber());
@@ -71,8 +80,6 @@ public class ThermometerController {
         }
 
          */
-
-
         //should get new temperature, not just the entire object so filter here
         return HOMEPAGE;
     }
@@ -80,7 +87,16 @@ public class ThermometerController {
     @PostMapping("")
     public String updateValues(@ModelAttribute(WEATHER_ATTRIBUTES) WeatherAttributes weatherAttributes, @ModelAttribute(BUTTON) Button button, Model model){
         weatherAttributes.setPhoneNumber(weatherAttributes.getPhoneNumberString());
-        //We will be using this logic when we can get data from probe
+        Temperature temp = tRepo.findByID(2L);
+
+        model.addAttribute("temp" , temp.getTemp());
+
+        if(temp.getProbe() == 1 && temp.getTemp() == null){
+            model.addAttribute("error", "error occurred");
+        }
+        else if(temp.getProbe() != 1){
+            model.addAttribute(weatherAttributes);
+        }
 
         System.out.println();
         System.out.println("Phone Number: " + weatherAttributes.getPhoneNumber());
@@ -93,7 +109,6 @@ public class ThermometerController {
         //update button database to see if the virtual button is pressed
         /////////////////////////////////////////////////////////////////////////////////////////////
 
-        model.addAttribute(weatherAttributes);
         return HOMEPAGE;
     }
 
