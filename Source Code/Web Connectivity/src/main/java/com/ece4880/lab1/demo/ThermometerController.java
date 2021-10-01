@@ -12,7 +12,6 @@ import com.twilio.rest.api.v2010.account.Message;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class ThermometerController {
@@ -48,15 +47,15 @@ public class ThermometerController {
     }
 
     @GetMapping("")
-    public String viewHomePage(@ModelAttribute(WEATHER_ATTRIBUTES) WeatherAttributes weatherAttributes, Model model){
+    public String viewHomePage(@ModelAttribute(WEATHER_ATTRIBUTES) WeatherAttributes weatherAttributes, @ModelAttribute(BUTTON) Button button,  Model model){
         //We will be using this logic when we can get data from probe
         model.addAttribute(weatherAttributes);
-
+        button.setScreenBool("FALSE");
         String toPhoneNumber = weatherAttributes.getPhoneNumber();
 
         List<Temperature> temps = tRepo.findAll();
         ArrayList<Temperature> temps2 = new ArrayList<>();
-        for(int i = temps.size() - 1; i > temps.size() - 12; i--){
+        for(int i = temps.size() - 1; i > temps.size() - 300; i--){
             temps2.add(temps.get(i));
         }
         Temperature temp = temps2.get(0);
@@ -68,9 +67,9 @@ public class ThermometerController {
         if(temp.getProbe() == 1 && temp.getTemp() == null){
             model.addAttribute("error", "error occurred");
         }
-        else if(temp.getProbe() != 1){
+        else if(temp.getProbe() == 1){
             model.addAttribute(weatherAttributes);
-
+            model.addAttribute(button);
             checkTemps(weatherAttributes, toPhoneNumber, temp);
         }
         //should get new temperature, not just the entire object so filter here
@@ -84,7 +83,7 @@ public class ThermometerController {
 
         List<Temperature> temps = tRepo.findAll();
         ArrayList<Temperature> temps2 = new ArrayList<>();
-        for(int i = temps.size() - 1; i > temps.size() - 12; i--){
+        for(int i = temps.size() - 1; i > temps.size() - 300; i--){
             temps2.add(temps.get(i));
         }
         Temperature temp = temps2.get(0);
@@ -95,11 +94,10 @@ public class ThermometerController {
         if(temp.getProbe() == 1 && temp.getTemp() == null){
             model.addAttribute("error", "error occurred");
         }
-        else if(temp.getProbe() != 1){
+        else if(temp.getProbe() == 1){
             model.addAttribute(weatherAttributes);
-          
+            model.addAttribute(button);
             String toPhoneNumber = weatherAttributes.getPhoneNumber();
-
             checkTemps(weatherAttributes, toPhoneNumber, temp);
 
         }
@@ -112,9 +110,13 @@ public class ThermometerController {
         System.out.println("Min Temp Message: " + weatherAttributes.getMinTempString());
         System.out.println("Degrees State: " + weatherAttributes.getDegreeState());
 
-        /////////////////////////////////////////////////////////////////////////////////////////////
-        //update button database to see if the virtual button is pressed
-        /////////////////////////////////////////////////////////////////////////////////////////////
+        if(button.getScreenBool() !=null) {
+            List<Button> buttons = bRepo.findAll();
+            Button button2 = new Button();
+            button2.setId(buttons.get(buttons.size() - 1).getId() + 1);
+            button2.setScreenBool(button.getScreenBool().toUpperCase());
+            bRepo.save(button2);
+        }
        
         return HOMEPAGE;
     }

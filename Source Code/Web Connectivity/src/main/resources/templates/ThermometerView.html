@@ -140,9 +140,19 @@
                     </label>
                 </div>
             </form>
-            <div>
-                <button class="button">Turn on Display</button>
-            </div>
+            <form id="buttonDisplay" onchange="display_button()"  th:action="@{''}" th:method="post">
+                <p>Toggle Temperature Display:</p>
+                <input type="radio" id="TRUE" name="display" th:field="${button.screenBool}" th:value="TRUE" >
+                <label for="TRUE">On</label>
+                <input type="radio" id="FALSE" name="display" th:field="${button.screenBool}" th:value="FALSE" checked>
+                <label for="FALSE">Off</label>
+            </form>
+            <script>
+                function display_button(){
+                    var form = document.getElementById("buttonDisplay");
+                    form.submit();
+                }
+            </script>
         </article>
         <div>
             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -180,7 +190,7 @@
                         title: 'Temperature Graph',
                         curveType: 'function',
                         legend: { position: 'bottom' },
-                        vAxis: {viewWindowMode:'maximized', maxValue:50, minValue:10},
+                        vAxis: {viewWindowMode:'pretty', viewWindowMax:50, viewWindowMin:10},
                         hAxis: {direction:-1}
                     };
 
@@ -211,6 +221,10 @@
                     /*[/]*/
 
                     for(var j = 0; j <300; j++){
+                        arr2.push([j,parseFloat(arr[j])]);
+                    }
+
+                    for(var j = 0; j <300; j++){
                         arr2.push([j,(parseFloat(arr[j])+ 9/5) + 32 ]);
                     }
 
@@ -223,7 +237,7 @@
                         title: 'Temperature Graph',
                         curveType: 'function',
                         legend: { position: 'bottom' },
-                        vAxis: {viewWindowMode:'maximized', maxValue:122, minValue:50 },
+                        vAxis: {viewWindowMode:"pretty", viewWindowMax:122, viewWindowMin:50 },
                         hAxis: {direction:-1}
                     };
 
