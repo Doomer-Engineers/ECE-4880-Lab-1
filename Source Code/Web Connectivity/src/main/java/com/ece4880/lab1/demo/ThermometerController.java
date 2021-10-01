@@ -52,9 +52,16 @@ public class ThermometerController {
 
         String toPhoneNumber = weatherAttributes.getPhoneNumber();
 
-        Optional<Temperature> temp = tRepo.findById(1L);
-        temp.ifPresent(value -> {
-            model.addAttribute("temp", value.getTemp());
+        Temperature temp = tRepo.findByID(3L);
+
+        model.addAttribute("temp" , temp.getTemp());
+        model.addAttribute("probe", temp.getProbe());
+
+        if(temp.getProbe() == 1 && temp.getTemp() == null){
+            model.addAttribute("error", "error occurred");
+        }
+        else if(temp.getProbe() != 1){
+            model.addAttribute(weatherAttributes);
             if (value.getTemp() >= weatherAttributes.getMaxTemp()){
                 String message = weatherAttributes.getMaxTempString();
                 sendMessage(message, toPhoneNumber);
@@ -67,8 +74,7 @@ public class ThermometerController {
                 System.out.println("Sending text message to: " + toPhoneNumber + ", Minimum boundary for temperature reached.");
 
             }
-        });
-
+        }
         //should get new temperature, not just the entire object so filter here
         return HOMEPAGE;
     }
@@ -76,7 +82,33 @@ public class ThermometerController {
     @PostMapping("")
     public String updateValues(@ModelAttribute(WEATHER_ATTRIBUTES) WeatherAttributes weatherAttributes, @ModelAttribute(BUTTON) Button button, Model model){
         weatherAttributes.setPhoneNumber(weatherAttributes.getPhoneNumberString());
-        //We will be using this logic when we can get data from probe
+        Temperature temp = tRepo.findByID(2L);
+
+        model.addAttribute("temp" , temp.getTemp());
+
+        if(temp.getProbe() == 1 && temp.getTemp() == null){
+            model.addAttribute("error", "error occurred");
+        }
+        else if(temp.getProbe() != 1){
+            model.addAttribute(weatherAttributes);
+          
+            String toPhoneNumber = weatherAttributes.getPhoneNumber();
+          
+            model.addAttribute(weatherAttributes);
+            if (value.getTemp() >= weatherAttributes.getMaxTemp()){
+                String message = weatherAttributes.getMaxTempString();
+                sendMessage(message, toPhoneNumber);
+                System.out.println("Sending text message to: " + toPhoneNumber + ", Maximum boundary for temperature reached.");
+            }
+
+            if (value.getTemp() <= weatherAttributes.getMinTemp()) {
+                String message = weatherAttributes.getMinTempString();
+                sendMessage(message, toPhoneNumber);
+                System.out.println("Sending text message to: " + toPhoneNumber + ", Minimum boundary for temperature reached.");
+
+            }
+
+        }
 
         System.out.println();
         System.out.println("Phone Number: " + weatherAttributes.getPhoneNumber());
@@ -88,27 +120,7 @@ public class ThermometerController {
         /////////////////////////////////////////////////////////////////////////////////////////////
         //update button database to see if the virtual button is pressed
         /////////////////////////////////////////////////////////////////////////////////////////////
-        String toPhoneNumber = weatherAttributes.getPhoneNumber();
-
-        Optional<Temperature> temp = tRepo.findById(1L);
-        temp.ifPresent(value -> {
-            model.addAttribute("temp", value.getTemp());
-            if (value.getTemp() >= weatherAttributes.getMaxTemp()){
-                String message = weatherAttributes.getMaxTempString();
-                sendMessage(message, toPhoneNumber);
-                System.out.println("Sending text message to: " + toPhoneNumber + " " + weatherAttributes.getMaxTempString());
-            }
-
-            if (value.getTemp() <= weatherAttributes.getMinTemp()) {
-                String message = weatherAttributes.getMinTempString();
-                sendMessage(message, toPhoneNumber);
-                System.out.println("Sending text message to: " + toPhoneNumber + " " + weatherAttributes.getMinTempString());
-
-            }
-        });
-        ///^^THIS needs to display an error message if there is no temp instead of just displaying the last value stored
-
-        model.addAttribute(weatherAttributes);
+       
         return HOMEPAGE;
     }
 

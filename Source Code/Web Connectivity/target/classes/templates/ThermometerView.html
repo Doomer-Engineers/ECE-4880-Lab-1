@@ -61,11 +61,12 @@
     </style>
 </head>
 <body>
-    <div class="wrapper">
+    <div class="wrapper" th:if="${probe} == 1">
         <article class="flow">
             <div>
                 <label class="myText">Temperature Reading</label>
-                <p class="myText" th:text="${temp} + ' °C'  "></p>
+                <p class="myText" th:if="${temp} == !null" th:text="${temp} + ' °C'  "></p>
+                <p class="myText" th:if="${temp} == null" th:text="${error}"></p>
             </div>
             <form>
                 <p>Select temp scale for graph:</p>
