@@ -47,12 +47,10 @@ public class ThermometerController {
 
     @GetMapping("")
     public String viewHomePage(@ModelAttribute(WEATHER_ATTRIBUTES) WeatherAttributes weatherAttributes, Model model){
+        //We will be using this logic when we can get data from probe
         model.addAttribute(weatherAttributes);
 
-    @PostMapping("")
-    public String updateValues(@ModelAttribute(WEATHER_ATTRIBUTES) WeatherAttributes weatherAttributes, Model model){
-        weatherAttributes.setPhoneNumber(weatherAttributes.getPhoneNumberString());
-        //We will be using this logic when we can get data from probe
+
         Optional<Temperature> temp = tRepo.findById(1L);
         temp.ifPresent(value -> model.addAttribute("temp", value.getTemp()));
 
@@ -76,7 +74,6 @@ public class ThermometerController {
 
 
         //should get new temperature, not just the entire object so filter here
-        //model.addAttribute(temperature);
         return HOMEPAGE;
     }
 
