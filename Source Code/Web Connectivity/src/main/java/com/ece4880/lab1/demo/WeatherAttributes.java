@@ -5,8 +5,17 @@ public class WeatherAttributes {
     private String maxTempString = "Maximum temperature bound reached";
     private String minTempString = "Minimum temperature bound reached";
     private String phoneNumber = "712-216-1659";
+    private String degreeState = "C";
     private int maxTemp = 50;
     private int minTemp = 10;
+
+    public String getDegreeState() {
+        return degreeState;
+    }
+
+    public void setDegreeState(String degreeState) {
+        this.degreeState = degreeState;
+    }
 
     public String getPhoneNumberString() {
         return phoneNumberString;

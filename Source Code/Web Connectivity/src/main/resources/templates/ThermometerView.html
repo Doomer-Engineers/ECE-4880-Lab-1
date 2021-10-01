@@ -70,18 +70,25 @@
 <body>
     <div class="wrapper" th:if="${probe} == 1">
         <article class="flow">
-            <div th:switch="${temp} == null">
+            <div>
                 <label class="myText">Temperature Reading</label>
-                <p class="myText" th:case="false" th:text="${temp} + ' °C'  "></p>
-                <p class="myText" th:if="true" th:text="${error}"></p>
+                <p class="myText" th:if ="${temp != null && weatherAttributes.degreeState == 'C'}" th:text="${temp} + ' °C'  "></p>
+                <p class="myText" th:if ="${temp != null && weatherAttributes.degreeState == 'F'}" th:text="(${temp} + 9/5) + 32 + ' °F'  "></p>
+                <p class="myText" th:if="${temp == null}" th:text="${error}"></p>
             </div>
-            <form>
+            <form id="conversionForm" onchange="submit_form()"  th:action="@{''}" th:method="post">
                 <p>Select temp scale for graph:</p>
-                 <input type="radio" id="C" name="temp" value="C">
-                 <label for="C">Celsius</label>
-                 <input type="radio" id="F" name="temp" value="F">
-                 <label for="F">Fahrenheit</label>
+                <input type="radio" id="C" name="temp" th:field="${weatherAttributes.degreeState}" th:value="C">
+                <label for="C">Celsius</label>
+                <input type="radio" id="F" name="temp" th:field="${weatherAttributes.degreeState}" th:value="F">
+                <label for="F">Fahrenheit</label>
             </form>
+            <script>
+                function submit_form(){
+                    var form = document.getElementById("conversionForm");
+                    form.submit();
+                }
+            </script>
             <form th:action="@{''}" th:method="post" th:object="${weatherAttributes}">
                 <div class="grid">
                     <label class="label">Maximum Temp°C</label>

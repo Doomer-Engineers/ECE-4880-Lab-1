@@ -75,6 +75,7 @@ public class ThermometerController {
         Temperature temp = tRepo.findByID(1L);
 
         model.addAttribute("temp" , temp.getTemp());
+        model.addAttribute("probe", temp.getProbe());
 
         if(temp.getProbe() == 1 && temp.getTemp() == null){
             model.addAttribute("error", "error occurred");
@@ -94,6 +95,7 @@ public class ThermometerController {
         System.out.println("Max Temp Message: " + weatherAttributes.getMaxTempString());
         System.out.println("Min Temp: " + weatherAttributes.getMinTemp());
         System.out.println("Min Temp Message: " + weatherAttributes.getMinTempString());
+        System.out.println("Degrees State: " + weatherAttributes.getDegreeState());
 
         /////////////////////////////////////////////////////////////////////////////////////////////
         //update button database to see if the virtual button is pressed
