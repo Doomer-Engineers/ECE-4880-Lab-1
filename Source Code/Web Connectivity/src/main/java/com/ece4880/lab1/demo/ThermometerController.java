@@ -51,7 +51,6 @@ public class ThermometerController {
         //We will be using this logic when we can get data from probe
         model.addAttribute(weatherAttributes);
         button.setScreenBool("FALSE");
-        String toPhoneNumber = weatherAttributes.getPhoneNumber();
 
         List<Temperature> temps = tRepo.findAll();
         ArrayList<Temperature> temps2 = new ArrayList<>();
@@ -67,9 +66,12 @@ public class ThermometerController {
         if(temp.getProbe() == 1 && temp.getTemp() == null){
             model.addAttribute("error", "error occurred");
         }
+        else if(temp.getProbe() == 1){
+            String toPhoneNumber = weatherAttributes.getPhoneNumber();
+            checkTemps(weatherAttributes, toPhoneNumber, temp);
+        }
             model.addAttribute(weatherAttributes);
             model.addAttribute(button);
-            checkTemps(weatherAttributes, toPhoneNumber, temp);
 
         //should get new temperature, not just the entire object so filter here
         return HOMEPAGE;
@@ -93,10 +95,12 @@ public class ThermometerController {
         if(temp.getProbe() == 1 && temp.getTemp() == null){
             model.addAttribute("error", "error occurred");
         }
-            model.addAttribute(weatherAttributes);
-            model.addAttribute(button);
+        else if(temp.getProbe() == 1){
             String toPhoneNumber = weatherAttributes.getPhoneNumber();
             checkTemps(weatherAttributes, toPhoneNumber, temp);
+        }
+            model.addAttribute(weatherAttributes);
+            model.addAttribute(button);
 
         System.out.println();
         System.out.println("Phone Number: " + weatherAttributes.getPhoneNumber());

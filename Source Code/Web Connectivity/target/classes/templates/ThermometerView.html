@@ -83,7 +83,6 @@
 </head>
 <body>
     <div class="wrapper" th:if="${probe} == 1">
-        <form th:action="@{''}" th:method="post" th:object="${weatherAttributes}">
         <article class="flow">
             <div>
                 <label class="myText">Temperature Reading</label>
@@ -104,6 +103,7 @@
                     form.submit();
                 }
             </script>
+            <form th:action="@{''}" th:method="post" th:object="${weatherAttributes}">
                 <div class="grid">
                     <label class="label">Maximum Temp°C</label>
                     <div>
@@ -139,6 +139,7 @@
                         <input type="submit" class="button">
                     </label>
                 </div>
+            </form>
             <form id="buttonDisplay" onchange="display_button()"  th:action="@{''}" th:method="post">
                 <p>Toggle Temperature Display:</p>
                 <input type="radio" id="TRUE" name="display" th:field="${button.screenBool}" th:value="TRUE" >
@@ -153,7 +154,6 @@
                 }
             </script>
         </article>
-        </form>
         <div>
             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
             <script type="text/javascript" th:inline="javascript">

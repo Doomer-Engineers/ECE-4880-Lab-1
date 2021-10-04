@@ -190,7 +190,7 @@
                         title: 'Temperature Graph',
                         curveType: 'function',
                         legend: { position: 'bottom' },
-                        vAxis: {viewWindowMode:'pretty', viewWindowMax:50, viewWindowMin:10},
+                        vAxis: {viewWindowMode:'maximum', maxValue:50, minValue:10},
                         hAxis: {direction:-1}
                     };
 
@@ -221,10 +221,6 @@
                     /*[/]*/
 
                     for(var j = 0; j <300; j++){
-                        arr2.push([j,parseFloat(arr[j])]);
-                    }
-
-                    for(var j = 0; j <300; j++){
                         arr2.push([j,(parseFloat(arr[j])+ 9/5) + 32 ]);
                     }
 
@@ -237,7 +233,7 @@
                         title: 'Temperature Graph',
                         curveType: 'function',
                         legend: { position: 'bottom' },
-                        vAxis: {viewWindowMode:"pretty", viewWindowMax:122, viewWindowMin:50 },
+                        vAxis: {viewWindowMode:"maximum", maxValue:122, minValue:50 },
                         hAxis: {direction:-1}
                     };
 
